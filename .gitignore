@@ -11,3 +11,8 @@ target/
 *.jar
 *.war
 *.ear
+
+#Android
+gen/
+bin/
+*.xcf

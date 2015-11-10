@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:padding="0dp">
+    
+    <nl.tumbolia.bar.android.DistributionButton
+        android:id="@+id/distributionButton1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/distributionButton2"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff" 
+        android:tag="valve1"/>
+     
+	<nl.tumbolia.bar.android.DistributionButton
+        android:id="@+id/distributionButton2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/distributionButton3"
+        android:layout_centerHorizontal="true"
+        android:textColor="#00f"        
+        android:tag="valve2" />
+      
+	<nl.tumbolia.bar.android.DistributionButton
+        android:id="@+id/distributionButton3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/distributionButton4"
+        android:layout_centerHorizontal="true"
+        android:textColor="#0F0"
+        android:tag="valve3" />
+       
+    <nl.tumbolia.bar.android.DistributionButton
+        android:id="@+id/distributionButton4"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+       	android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:tag="valve4" />
+
+    <Button
+        android:id="@+id/bluetoothButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/button_connect" />   
+
+</RelativeLayout>

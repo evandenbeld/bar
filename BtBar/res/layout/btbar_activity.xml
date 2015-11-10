@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"    
+    android:orientation="vertical" 
+    android:background="@drawable/fire_water_glass_blur">
+
+    <fragment
+    	android:id="@+id/mainTab"
+     	android:name="nl.tumbolia.bar.android.MainTabFragment"
+     	android:layout_width="match_parent"
+     	android:layout_height="match_parent"
+     	class="nl.tumbolia.bar.android.MainTabFragment"/>
+    
+     <fragment
+    	android:id="@+id/cocktailTab"
+     	android:name="nl.tumbolia.bar.android.OrderCocktailFragment"
+     	android:layout_width="match_parent"
+     	android:layout_height="match_parent"
+     	class="nl.tumbolia.bar.android.cocktails.OrderCocktailFragment"/> 
+    
+    <fragment
+    	android:id="@+id/preferencesTab"
+     	android:name="nl.tumbolia.bar.android.settings.SettingsFragment"
+     	android:layout_width="match_parent"
+     	android:layout_height="match_parent"
+     	class="nl.tumbolia.bar.android.settings.SettingsFragment"/>         
+  
+</LinearLayout>

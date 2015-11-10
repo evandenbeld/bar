@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <color name="black">#000000</color>
+    <color name="primary">#ffff00</color>
+	<color name="transparent">#00000000</color>
+	<color name="primary_dark">#B2B212</color> 
+	<!-- 
+	199EFF (text)
+	CC1814 (error, highlite)
+	B20C09 (error, highlite?)
+	
+	 -->
+</resources>

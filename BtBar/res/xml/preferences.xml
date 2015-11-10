@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/action_settings" >
+
+    <PreferenceCategory
+        android:key="distributionButton1Category"
+        android:title="@string/distributionButton1Category" >
+        <EditTextPreference
+            android:defaultValue="Wodka"
+            android:key="distributionButton1Liquor"
+            android:summary="Wodka"
+            android:title="@string/liquor" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:key="distributionButton1Timeout"
+            android:numeric="integer"
+            android:summary="5"
+            android:title="@string/timeout" />
+        <EditTextPreference
+            android:defaultValue="2"
+            android:key="distributionButton1HardwareId"
+            android:numeric="integer"
+            android:summary="2"
+            android:title="@string/hardwareId" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="distributionButton2Category"
+        android:title="@string/distributionButton2Category" >
+        <EditTextPreference
+            android:defaultValue="Rum"
+            android:key="distributionButton2Liquor"
+            android:summary="Rum"
+            android:title="@string/liquor" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:key="distributionButton2Timeout"
+            android:numeric="integer"
+            android:summary="5"
+            android:title="@string/timeout" />
+        <EditTextPreference
+            android:defaultValue="1"
+            android:key="distributionButton2HardwareId"
+            android:numeric="integer"
+            android:summary="1"
+            android:title="@string/hardwareId" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="distributionButton1Category"
+        android:title="@string/distributionButton3Category" >
+        <EditTextPreference
+            android:defaultValue="Blue"
+            android:key="distributionButton3Liquor"
+            android:summary="Blue"
+            android:title="@string/liquor" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:key="distributionButton3Timeout"
+            android:numeric="integer"
+            android:summary="5"
+            android:title="@string/timeout" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:key="distributionButton3HardwareId"
+            android:numeric="integer"
+            android:summary="5"
+            android:title="@string/hardwareId" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="distributionButton1Category"
+        android:title="@string/distributionButton4Category" >
+        <EditTextPreference
+            android:defaultValue="Pisang"
+            android:key="distributionButton4Liquor"
+            android:summary="Pisang"
+            android:title="@string/liquor" />
+        <EditTextPreference
+            android:defaultValue="5"
+            android:key="distributionButton4Timeout"
+            android:numeric="integer"
+            android:summary="5"
+            android:title="@string/timeout" />
+        <EditTextPreference
+            android:defaultValue="6"
+            android:key="distributionButton4HardwareId"
+            android:numeric="integer"
+            android:summary="6"
+            android:title="@string/hardwareId" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
