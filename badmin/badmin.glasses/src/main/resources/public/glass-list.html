@@ -1,0 +1,38 @@
+<link rel="import" href="/webjars/polymer/1.0.8/polymer.html">
+<link rel="import" href="/webjars/github-com-PolymerElements-iron-ajax/1.0.5/iron-ajax.html">
+
+<dom-module id="glass-list">
+	<template>
+		<style>
+			
+	      img {     
+	        border: 0px;
+	        width: 100px;
+	        height: 100px;
+	    	padding: 2px;
+	    	opacity: 0.7;
+	      }    
+	      img:hover {
+	      	opacity: 1.0;
+		  } 
+	    </style>
+		<iron-ajax auto url="/glasses" handle-as="json" on-response="hresponse"></iron-ajax>
+		
+        <template is="dom-repeat" items="{{glasses}}">
+        	<img src="{{item.icon}}" alt="{{item.name}}" title="{{item.name}}">      
+	    </template>
+	</template>
+	<script>
+	    Polymer({
+	      is: 'glass-list',
+	      ready: function() {
+	    	  console.debug('Glass list started');
+	      },	     
+	      hresponse: function(e) {
+	    	  console.debug("Glasses found: " + e.detail.response);
+	    	  this.glasses = e.detail.response;		     
+		  }
+	    }); 
+	</script>
+
+</dom-module>
