@@ -34,24 +34,8 @@
          <dependency>
          	<groupId>org.springframework.boot</groupId>
          	<artifactId>spring-boot-starter-data-rest</artifactId>
-         </dependency>
-         <dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>polymer</artifactId>
-			<version>1.0.8</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>github-com-PolymerElements-iron-ajax</artifactId>
-		    <version>1.0.5</version>
-		    <exclusions>
-		    	<exclusion>
-          		<groupId>org.webjars.bower</groupId>
-          		<artifactId>github-com-polymerlabs-promise-polyfill</artifactId>
-        	</exclusion>
-		    </exclusions>
-		</dependency>		
-		
+         </dependency>         
+				
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
