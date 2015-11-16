@@ -1,0 +1,75 @@
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+
+<dom-module id="glass-list">
+	<template>
+		<style>
+			
+	      div.glasses img {     
+	        border: 0px;
+	        width: 100px;
+	        height: 100px;
+	    	padding: 2px;
+	    	opacity: 0.7;
+	      }    
+	      div.glasses img:hover {
+	      	opacity: 1.0;
+		  } 
+		  
+		  div.glasses, h2 {
+		  	width: 350px;
+		  	margin-left: auto;
+		  	margin-right: auto;
+		  	text-align: center;
+		  }
+		  
+		  paper-dialog img
+		  {
+		    width: 100px;
+		  }
+	    </style>
+      
+      <iron-ajax auto url="http://localhost:8081/glasses" handle-as="json" on-response="hresponse"></iron-ajax>
+       <h2>Glasses</h2>
+		  <div class="horizontal layout wrap glasses">
+		     
+	        <template is="dom-repeat" items="{{glasses}}">
+	        	<img src="{{item.icon}}" alt="{{item.name}}" title="{{item.name}}" on-tap="ontap" >
+		    </template>
+	  	</div>
+	  	
+	  	<paper-dialog id="glassDetailDialog" modal>
+	      <h2>Edit {{glass.name}}</h2>
+		    <div class="settings">
+		      <paper-input label="Name">{{glass.name}}</paper-input>
+		      <paper-input label="contents ({{glass.unit}})">{{glass.contents}}</paper-input>
+		      <img src="{{glass.icon}}" alt="{{glass.name}}" >
+		    </div>
+	      <div class="buttons">
+          <paper-button dialog-dismiss>Cancel</paper-button>
+          <paper-button dialog-confirm autofocus>Save</paper-button>
+        </div>
+	    </paper-dialog>
+	    
+	</template>
+	<script>
+	    Polymer({
+	      is: 'glass-list',
+	      ready: function() {
+	    	  console.debug('Glass list started');
+	      },	     
+	      hresponse: function(e) {
+	    	  console.debug("Glasses found: " + e.detail.response);
+	    	  this.glasses = e.detail.response;		     
+		  },
+		  ontap: function(event) {
+		    console.debug(event.model.item);
+		    this.glass = event.model.item;
+			  this.$.glassDetailDialog.open();
+		  }
+	    }); 
+	</script>
+
+</dom-module>

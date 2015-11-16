@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication
 public class GlassApplication 
-{
+{		
 	public static void main(String[] args) 
 	{
 		SpringApplication.run(GlassApplication.class, args);
@@ -44,7 +44,6 @@ public class GlassApplication
 	public CommandLineRunner demo(GlassRepository glassRepository)
 	{
 		// TODO real database
-		// TODO 404 errors in console (polymer webjars?)
 		return args -> {
 			// save a couple of glasses
 			glassRepository.save(createGlass(1, "Flute"));
@@ -58,7 +57,8 @@ public class GlassApplication
 			throws URISyntaxException, IOException 
 	{
 		Glass glass = new Glass(name, 200);
-		GlassIcon icon = new GlassIcon(new URI("/glassicon/" + id),
+		//FIXME URI not in model but build it dynamically in controller (using external request URL
+		GlassIcon icon = new GlassIcon(new URI("http://localhost:8081/glassicon/" + id),
 				createIconData(id + ".png"));
 		glass.setIcon(icon);
 		return glass;

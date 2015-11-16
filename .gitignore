@@ -17,3 +17,7 @@ target/
 gen/
 bin/
 *.xcf
+
+#bower
+bower_components/
+

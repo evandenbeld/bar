@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Spring boot security configuration.
@@ -28,16 +27,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.csrf().disable();
-        http.authorizeRequests().anyRequest().authenticated().and().httpBasic()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		//FIXME access control
+        // http.authorizeRequests().anyRequest().authenticated().and().httpBasic()
+		//                .and().sessionManagement()
+		//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
     {
-        // TODO service discovery including authentication?
     	// TODO use Roles for authorization
-        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+//        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
     }
 }
