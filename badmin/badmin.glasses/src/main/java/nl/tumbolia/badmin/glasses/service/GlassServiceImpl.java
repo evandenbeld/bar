@@ -28,10 +28,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GlassServiceImpl implements GlassService
-{		
+{
     @Autowired(required = true)
     private GlassRepository glassRepository;
-    
+
     @Autowired(required = true)
     private GlassIconRepository glassIconRepository;
 
@@ -43,9 +43,9 @@ public class GlassServiceImpl implements GlassService
         return glasses;
     }
 
-	@Override
-	public Optional<GlassIcon> getGlassIcon(final long id) 
-	{
-		return Optional.ofNullable(glassIconRepository.findOne(id));
-	}
+    @Override
+    public Optional<GlassIcon> getGlassIcon(final long id)
+    {
+        return Optional.ofNullable(glassIconRepository.findOne(id));
+    }
 }

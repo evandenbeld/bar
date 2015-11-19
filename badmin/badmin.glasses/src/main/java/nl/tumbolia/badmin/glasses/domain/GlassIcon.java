@@ -10,8 +10,6 @@
 package nl.tumbolia.badmin.glasses.domain;
 
 import java.io.Serializable;
-import java.net.URI;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +17,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-
-import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Cocktail glass icon.
@@ -37,9 +33,6 @@ public class GlassIcon implements Serializable
     @Column(name = "GLASS_ICON_ID")
     private long id;
 
-    @Column(nullable = false, unique = true)
-    private URI location;
-
     @Lob
     private byte[] data;
 
@@ -48,12 +41,11 @@ public class GlassIcon implements Serializable
         // Default constructor
     }
 
-    public GlassIcon(URI location, byte[] data)
+    public GlassIcon(byte[] data)
     {
-        this.location = location;
         this.data = data;
     }
-
+    
     public long getId()
     {
         return id;
@@ -62,17 +54,6 @@ public class GlassIcon implements Serializable
     public void setId(long id)
     {
         this.id = id;
-    }
-
-    @JsonValue
-    public URI getLocation()
-    {
-        return location;
-    }
-
-    public void setLocation(URI location)
-    {
-        this.location = location;
     }
 
     public byte[] getData()
@@ -84,40 +65,4 @@ public class GlassIcon implements Serializable
     {
         this.data = data;
     }
-
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((location == null) ? 0 : location.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-        {
-            return true;
-        }
-        if (obj == null)
-        {
-            return false;
-        }
-        if (!(obj instanceof GlassIcon))
-        {
-            return false;
-        }
-        GlassIcon other = (GlassIcon) obj;
-        return Objects.equals(location, other.location);
-    }
-
-    @Override
-    public String toString()
-    {
-        return location != null ? location.toString() : null;
-    }
-
 }

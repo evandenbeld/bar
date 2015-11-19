@@ -13,8 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.imageio.ImageIO;
 
@@ -33,46 +31,45 @@ import org.springframework.context.annotation.Bean;
  * @author erwin
  */
 @SpringBootApplication
-public class GlassApplication 
-{		
-	public static void main(String[] args) 
-	{
-		SpringApplication.run(GlassApplication.class, args);
-	}
+public class GlassApplication
+{
+    public static void main(String[] args)
+    {
+        SpringApplication.run(GlassApplication.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner demo(GlassRepository glassRepository)
-	{
-		// TODO real database
-		return args -> {
-			// save a couple of glasses
-			glassRepository.save(createGlass(1, "Flute"));
-			glassRepository.save(createGlass(2, "Champagne glass"));
-			glassRepository.save(createGlass(3, "Beer glass"));
+    @Bean
+    public CommandLineRunner demo(GlassRepository glassRepository)
+    {
+        // TODO real database
+        return args -> {
+            // save a couple of glasses
+            glassRepository.save(createGlass(1, "Flute"));
+            glassRepository.save(createGlass(2, "Champagne glass"));
+            glassRepository.save(createGlass(3, "Beer glass"));
 
-		};
-	}
+        };
+    }
 
-	private Glass createGlass(final int id, final String name)
-			throws URISyntaxException, IOException 
-	{
-		Glass glass = new Glass(name, 200);
-		//FIXME URI not in model but build it dynamically in controller (using external request URL
-		GlassIcon icon = new GlassIcon(new URI("http://localhost:8081/glassicon/" + id),
-				createIconData(id + ".png"));
-		glass.setIcon(icon);
-		return glass;
-	}
+    private Glass createGlass(final int id, final String name)
+            throws IOException
+    {
+        Glass glass = new Glass(name, 200);
+        GlassIcon icon = new GlassIcon(createIconData(id + ".png"));
+        glass.setIcon(icon);
+        return glass;
+    }
 
-	private byte[] createIconData(final String image) throws IOException 
-	{
-		// Retrieve image from the classpath.
-		InputStream is = this.getClass().getResourceAsStream("/public/" + image);
-		BufferedImage img = ImageIO.read(is);
-		ByteArrayOutputStream bao = new ByteArrayOutputStream();
+    private byte[] createIconData(final String image) throws IOException
+    {
+        // Retrieve image from the classpath.
+        InputStream is = this.getClass()
+                .getResourceAsStream("/public/" + image);
+        BufferedImage img = ImageIO.read(is);
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
 
-		ImageIO.write(img, "png", bao);
+        ImageIO.write(img, "png", bao);
 
-		return bao.toByteArray();
-	}
+        return bao.toByteArray();
+    }
 }

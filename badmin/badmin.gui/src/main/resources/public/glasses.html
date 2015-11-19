@@ -31,7 +31,7 @@
 		  }
 	    </style>
       
-      <iron-ajax auto url="http://localhost:8081/glasses" handle-as="json" on-response="hresponse"></iron-ajax>
+      <iron-ajax auto url="{{service-url}}" handle-as="json" on-response="hresponse"></iron-ajax>
        <h2>Glasses</h2>
 		  <div class="horizontal layout wrap glasses">
 		     
@@ -43,8 +43,8 @@
 	  	<paper-dialog id="glassDetailDialog" modal>
 	      <h2>Edit {{glass.name}}</h2>
 		    <div class="settings">
-		      <paper-input label="Name">{{glass.name}}</paper-input>
-		      <paper-input label="contents ({{glass.unit}})">{{glass.contents}}</paper-input>
+		      <paper-input label="Name" value="{{glass.name}}"></paper-input>
+		      <paper-input label="contents ({{glass.unit}})" value="{{glass.contents}}"></paper-input>
 		      <img src="{{glass.icon}}" alt="{{glass.name}}" >
 		    </div>
 	      <div class="buttons">

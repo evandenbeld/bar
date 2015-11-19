@@ -1,7 +1,7 @@
 /*
  * 
- * 							   Bluetooth Bar Admin
- * 								BEER-WARE LICENSE
+ * Bluetooth Bar Admin
+ * BEER-WARE LICENSE
  * 
  * <erwin@tumbolia.nl> wrote this software. As long as you retain this notice 
  * you can do whatever you want with this stuff. If we meet some day, and you 
@@ -18,16 +18,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author erwin
  */
 @SpringBootApplication
-public class GuiApplication 
+public class GuiApplication
 {
-	
-	//FIXME use parameters for ajax URL -> service discovery (or simply configuration, for now)
-	//FIXME Better bower dependencies (to much added now) 
-	//FIXME access control / login form
-	//TODO Bower executed by maven
-		
-	public static void main(String[] args) 
-	{
+    // FIXME seperate icon upload + image rotate to select in edit and add glass
+    // FIXME Use a thymeleaf template to construct the application
+    // FIXME access control / login form
+    // FIXME service discovery (or simply configuration, for now)
+
+    // TODO Better bower dependencies (to much added now)
+    // TODO Bower executed by maven
+
+    public static void main(String[] args)
+    {
         SpringApplication.run(GuiApplication.class, args);
     }
 }

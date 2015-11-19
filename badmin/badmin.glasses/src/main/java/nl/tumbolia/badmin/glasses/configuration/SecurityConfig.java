@@ -27,16 +27,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.csrf().disable();
-		//FIXME access control
+        // FIXME access control
         // http.authorizeRequests().anyRequest().authenticated().and().httpBasic()
-		//                .and().sessionManagement()
-		//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        // .and().sessionManagement()
+        // .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception
     {
-    	// TODO use Roles for authorization
-//        auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+        // TODO use Roles for authorization
+        // auth.inMemoryAuthentication().withUser("user").password("password").roles("USER");
     }
 }

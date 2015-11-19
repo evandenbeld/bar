@@ -1,7 +1,7 @@
 /*
  * 
- * 							   Bluetooth Bar Admin
- * 								BEER-WARE LICENSE
+ * Bluetooth Bar Admin
+ * BEER-WARE LICENSE
  * 
  * <erwin@tumbolia.nl> wrote this software. As long as you retain this notice 
  * you can do whatever you want with this stuff. If we meet some day, and you 
@@ -28,27 +28,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class SimpleCORSFilter implements Filter
 {
-	@Override
-	public void init(FilterConfig arg0) throws ServletException
-	{
-		// FIXME default filter, adjust to security specs		
-	}
+    @Override
+    public void init(FilterConfig arg0) throws ServletException
+    {
+        // TODO default filter, adjust to security specs
+    }
 
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException 
-	{		
-		HttpServletResponse response = (HttpServletResponse) res;
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-		chain.doFilter(req, res);
-	}
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res,
+            FilterChain chain) throws IOException, ServletException
+    {
+        HttpServletResponse response = (HttpServletResponse) res;
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods",
+                "POST, GET, PUT, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers",
+                "Origin, X-Requested-With, Content-Type, Accept");
+        chain.doFilter(req, res);
+    }
 
-	@Override
-	public void destroy() 
-	{
-		// Nothing to destroy		
-	}
-
+    @Override
+    public void destroy()
+    {
+        // Nothing to destroy
+    }
 }

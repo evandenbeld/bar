@@ -11,7 +11,7 @@ package nl.tumbolia.badmin.glasses.repository;
 
 import nl.tumbolia.badmin.glasses.domain.Glass;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
  * @author erwin
  */
 @Repository
-public interface GlassRepository extends CrudRepository<Glass, Long>
+public interface GlassRepository extends JpaRepository<Glass, Long>
 {
     Glass findByName(String name);
 }
