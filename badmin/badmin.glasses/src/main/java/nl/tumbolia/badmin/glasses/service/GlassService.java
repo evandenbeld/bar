@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 import nl.tumbolia.badmin.glasses.domain.Glass;
-import nl.tumbolia.badmin.glasses.domain.GlassIcon;
 
 /**
  * Service for retrieving, validating and updating glasses.
@@ -24,5 +23,5 @@ public interface GlassService
 {
     List<Glass> getAllGlasses();
     
-    Optional<GlassIcon> getGlassIcon(long id);
+    Optional<Glass> getGlass(long id);
 }

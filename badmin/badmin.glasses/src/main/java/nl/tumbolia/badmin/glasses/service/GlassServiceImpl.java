@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import nl.tumbolia.badmin.glasses.domain.Glass;
-import nl.tumbolia.badmin.glasses.domain.GlassIcon;
 import nl.tumbolia.badmin.glasses.repository.GlassIconRepository;
 import nl.tumbolia.badmin.glasses.repository.GlassRepository;
 
@@ -44,8 +43,8 @@ public class GlassServiceImpl implements GlassService
     }
 
     @Override
-    public Optional<GlassIcon> getGlassIcon(final long id)
+    public Optional<Glass> getGlass(final long id)
     {
-        return Optional.ofNullable(glassIconRepository.findOne(id));
+        return Optional.ofNullable(glassRepository.findOne(id));
     }
 }

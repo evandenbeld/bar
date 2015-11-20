@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
  * Spring MVC Glasses controller
  * 
@@ -47,43 +45,36 @@ public class GlassController
     public List<Glass> getAllGlasses(HttpServletRequest request)
     {
         List<Glass> glasses = glassService.getAllGlasses();
-        glasses.forEach(glass -> glass.setIcon(new GlassIconWithLocationWrapper(
-                glass.getIcon(), request)));
+        glasses.forEach(glass -> glass.getIcon().setLocation(buildIconLocation(request, glass.getId())));
         return glasses;
     }
-
-    @RequestMapping(value = "/glasses/icons/{id}", method = RequestMethod.GET, produces = "image/png")
-    @ResponseBody
-    public byte[] getGlassIcon(@PathVariable final long id)
+    
+    private static String buildIconLocation(final HttpServletRequest request, final long glassId)
     {
-        Optional<GlassIcon> icon = glassService.getGlassIcon(id);
-        if (!icon.isPresent())
+        return request.getRequestURL().append("/") .append(glassId).append("/icon").toString();
+    }
+
+    @RequestMapping(value = "/glasses/{glassId}/icon", method = RequestMethod.GET, produces = "image/png")
+    @ResponseBody
+    public byte[] getGlassIcon(@PathVariable final long glassId)
+    {        
+        GlassIcon icon = getGlass(glassId).getIcon();
+        if (icon == null)
         {
-            LOG.debug("Glass icon not found with ID " + id);
+            LOG.debug("Icon not found for glass with ID " + glassId);
             throw new ResourceNotFoundException();
         }
-        return icon.get().getData();
+        return icon.getData();
     }
 
-    private static final class GlassIconWithLocationWrapper extends GlassIcon
+    private Glass getGlass(final long glassId)
     {
-        private static final long serialVersionUID = -3438553615454840057L;
-        
-        private final String location;
-
-        public GlassIconWithLocationWrapper(final GlassIcon glassicon,
-                final HttpServletRequest request)
+        Optional<Glass> glass = glassService.getGlass(glassId);
+        if (!glass.isPresent())
         {
-            super(glassicon.getData());
-            super.setId(glassicon.getId());
-
-            location = request.getRequestURL().append("/icons/") .append(getId()).toString();
+            LOG.debug("Glass not found with ID " + glassId);
+            throw new ResourceNotFoundException();
         }
-
-        @JsonValue
-        public String getLocation()
-        {
-            return location;
-        }
-    }
+        return glass.get();
+    }   
 }

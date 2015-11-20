@@ -1,12 +1,14 @@
 package nl.tumbolia.badmin.glasses.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
 
 import nl.tumbolia.badmin.glasses.domain.Glass;
-import nl.tumbolia.badmin.glasses.domain.GlassIcon;
 import nl.tumbolia.badmin.glasses.repository.GlassIconRepository;
 import nl.tumbolia.badmin.glasses.repository.GlassRepository;
 
@@ -21,7 +23,6 @@ import com.google.common.collect.ImmutableList;
 
 /**
  * @author erwin
- *
  */
 public class GlassServiceImplTest 
 {
@@ -54,22 +55,22 @@ public class GlassServiceImplTest
 	}
 
 	@Test
-	public void testGetGlassIconFound() 
+	public void testGetGlassFound() 
 	{
-		GlassIcon mockGlassIcon = Mockito.mock(GlassIcon.class);
-		Mockito.when(mockGlassIconRepository.findOne(1L)).thenReturn(mockGlassIcon);
+		Glass mockGlass = Mockito.mock(Glass.class);
+		Mockito.when(mockGlassRepository.findOne(1L)).thenReturn(mockGlass);
 
-		Optional<GlassIcon> icon = glassServiceImpl.getGlassIcon(1L);
+		Optional<Glass> glass = glassServiceImpl.getGlass(1L);
 		
-		assertTrue(icon.isPresent());
-		assertEquals(Optional.of(mockGlassIcon), icon);		
-		Mockito.verify(mockGlassIconRepository, Mockito.only()).findOne(1L);
+		assertTrue(glass.isPresent());
+		assertEquals(Optional.of(mockGlass), glass);		
+		Mockito.verify(mockGlassRepository, Mockito.only()).findOne(1L);
 	}
 	
 	@Test
 	public void testGetGlassIconnotFound() 
 	{
-		assertFalse(glassServiceImpl.getGlassIcon(0).isPresent());		
-		Mockito.verify(mockGlassIconRepository, Mockito.only()).findOne(0L);
+		assertFalse(glassServiceImpl.getGlass(0).isPresent());		
+		Mockito.verify(mockGlassRepository, Mockito.only()).findOne(0L);
 	}
 }
