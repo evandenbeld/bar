@@ -24,4 +24,10 @@ public interface GlassService
     List<Glass> getAllGlasses();
     
     Optional<Glass> getGlass(long id);
+    
+    void addGlass(Glass glass);
+    
+    void updateGlass(Glass glass);
+    
+    //FIXME void removeGlass(Glass glass);
 }

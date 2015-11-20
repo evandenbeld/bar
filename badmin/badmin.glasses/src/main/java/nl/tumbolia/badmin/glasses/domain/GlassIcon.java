@@ -34,7 +34,7 @@ public class GlassIcon implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GLASS_ICON_ID")
-    private long id;
+    private Long id;
 
     @Lob
     @Column(nullable=false)
@@ -48,17 +48,17 @@ public class GlassIcon implements Serializable
         // Default constructor
     }
 
-    public GlassIcon(byte[] data)
+    public GlassIcon(final byte[] data)
     {
         this.data = data;
     }
     
-    public long getId()
+    public Long getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(final Long id)
     {
         this.id = id;
     }
@@ -68,7 +68,7 @@ public class GlassIcon implements Serializable
         return data;
     }
 
-    public void setData(byte[] data)
+    public void setData(final byte[] data)
     {
         this.data = data;
     }
@@ -79,8 +79,14 @@ public class GlassIcon implements Serializable
         return location;
     }
 
-    public void setLocation(String location)
+    public void setLocation(final String location)
     {
         this.location = location;
+    }
+    
+    @Transient
+    public boolean isNew()
+    {
+        return id == null;
     }
 }

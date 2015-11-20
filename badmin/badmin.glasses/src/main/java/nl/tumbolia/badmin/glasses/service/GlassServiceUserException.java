@@ -9,6 +9,10 @@
  */
 package nl.tumbolia.badmin.glasses.service;
 
+import java.io.Serializable;
+
+import com.google.common.base.Optional;
+
 /**
  * Exception for error in the Glass service
  * 
@@ -20,13 +24,28 @@ public class GlassServiceUserException extends RuntimeException
 
     public enum GlassServiceUserError
     {
-        EXISTS,
+        MISSING_REQUIRED_ITEM,
+        INVALID_ITEM,
+        DUPLICATE,
         NOT_FOUND,
     }
+    
+    private final Optional<Serializable> subject;
 
-    public GlassServiceUserException(GlassServiceUserError error)
+    public GlassServiceUserException(final GlassServiceUserError error)
     {
         super(error.name());
+        this.subject = Optional.<Serializable>absent();
+    }
+    
+    public GlassServiceUserException(final GlassServiceUserError error, final Serializable subject)
+    {
+        super(error.name());
+        this.subject = Optional.of(subject);
     }
 
+    public Optional<Serializable> getSubject()
+    {
+        return subject;
+    }
 }

@@ -22,6 +22,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 /**
  * Simple cocktail glass.
@@ -36,7 +37,7 @@ public class Glass implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "GLASS_ID")
-    private long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -45,6 +46,7 @@ public class Glass implements Serializable
     private int contents;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Unit unit;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
@@ -55,19 +57,19 @@ public class Glass implements Serializable
         // Default constructor
     }
 
-    public Glass(String name, int contents)
+    public Glass(final String name, final int contents)
     {
         this.name = name;
         this.contents = contents;
         this.unit = Unit.MILLI_LITER;
     }
 
-    public long getId()
+    public Long getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(final Long id)
     {
         this.id = id;
     }
@@ -77,7 +79,7 @@ public class Glass implements Serializable
         return name;
     }
 
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -87,7 +89,7 @@ public class Glass implements Serializable
         return contents;
     }
 
-    public void setContents(int contents)
+    public void setContents(final int contents)
     {
         this.contents = contents;
     }
@@ -97,7 +99,7 @@ public class Glass implements Serializable
         return unit;
     }
 
-    public void setUnit(Unit unit)
+    public void setUnit(final Unit unit)
     {
         this.unit = unit;
     }
@@ -107,9 +109,15 @@ public class Glass implements Serializable
         return icon;
     }
 
-    public void setIcon(GlassIcon icon)
+    public void setIcon(final GlassIcon icon)
     {
         this.icon = icon;
+    }
+    
+    @Transient
+    public boolean isNew()
+    {
+        return id == null;
     }
 
     @Override
