@@ -22,6 +22,8 @@ public class IndexController
 {
     //FIXME handle errors + toast?
     
+    //FIXME split glasses into separate components (+ move to bar.glasses?)
+    
     //FIXME new glass GUI functionality
     
     //FIXME delete glass GUI functionality

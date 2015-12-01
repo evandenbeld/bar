@@ -94,8 +94,7 @@
 		  save: function() {
 			  console.debug("Save: " + JSON.stringify(this.glass));
 			this.$.updateGlass.contentType="application/json";
-			this.$.updateGlass.body =  JSON.stringify(this.glass);
-	    	// '{"id": ' + this.glass.id + ', "name": "' + this.glass.name + '", "contents": ' + this.glass.contents + ', "unit": "' + this.glass.unit + '"}';
+			this.$.updateGlass.body =  JSON.stringify(this.glass);	    	
 		  	this.$.updateGlass.generateRequest();
 		  },
 		  saveResponse: function(event) {

@@ -15,11 +15,16 @@ import java.util.Optional;
 import nl.tumbolia.badmin.glasses.domain.Glass;
 import nl.tumbolia.badmin.glasses.domain.GlassIcon;
 import nl.tumbolia.badmin.glasses.service.GlassService;
+import nl.tumbolia.badmin.glasses.service.GlassServiceUserException;
+import nl.tumbolia.badmin.glasses.service.GlassServiceUserException.GlassServiceUserError;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,10 +82,19 @@ public class GlassController
        glassService.addGlass(glass);
     }
 
-    //FIXME exception handling -> convert user errror 
     @RequestMapping(method = RequestMethod.PUT)
     public void updateGlass(@RequestBody final Glass glass)
     {
         glassService.updateGlass(glass);
+    }
+    
+    @ExceptionHandler(GlassServiceUserException.class)
+    public ResponseEntity<String> handleGlassServiceUserException(GlassServiceUserException userException) 
+    {
+        if(userException.getError() == GlassServiceUserError.NOT_FOUND)
+        {
+            return new ResponseEntity<>(userException.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(userException.getMessage(), HttpStatus.BAD_REQUEST);                           
     }
 }

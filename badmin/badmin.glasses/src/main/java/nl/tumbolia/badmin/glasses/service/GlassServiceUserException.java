@@ -30,18 +30,27 @@ public class GlassServiceUserException extends RuntimeException
         NOT_FOUND,
     }
     
+    private final GlassServiceUserError error;
+    
     private final Optional<Serializable> subject;
 
     public GlassServiceUserException(final GlassServiceUserError error)
     {
         super(error.name());
+        this.error = error;
         this.subject = Optional.<Serializable>absent();
     }
     
     public GlassServiceUserException(final GlassServiceUserError error, final Serializable subject)
     {
         super(error.name());
+        this.error = error;
         this.subject = Optional.of(subject);
+    }
+
+    public GlassServiceUserError getError()
+    {
+        return error;
     }
 
     public Optional<Serializable> getSubject()
