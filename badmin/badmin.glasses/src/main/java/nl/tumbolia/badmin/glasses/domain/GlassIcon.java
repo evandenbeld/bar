@@ -19,7 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Cocktail glass icon.
@@ -39,9 +39,6 @@ public class GlassIcon implements Serializable
     @Lob
     @Column(nullable=false)
     private byte[] data;
-    
-    @Transient
-    private String location;
 
     public GlassIcon()
     {
@@ -52,7 +49,7 @@ public class GlassIcon implements Serializable
     {
         this.data = data;
     }
-    
+        
     public Long getId()
     {
         return id;
@@ -71,20 +68,10 @@ public class GlassIcon implements Serializable
     public void setData(final byte[] data)
     {
         this.data = data;
-    }
-
-    @JsonValue
-    public String getLocation()
-    {
-        return location;
-    }
-
-    public void setLocation(final String location)
-    {
-        this.location = location;
-    }
+    }   
     
     @Transient
+    @JsonIgnore
     public boolean isNew()
     {
         return id == null;

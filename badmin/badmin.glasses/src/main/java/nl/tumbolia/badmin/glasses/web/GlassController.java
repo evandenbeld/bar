@@ -12,8 +12,6 @@ package nl.tumbolia.badmin.glasses.web;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import nl.tumbolia.badmin.glasses.domain.Glass;
 import nl.tumbolia.badmin.glasses.domain.GlassIcon;
 import nl.tumbolia.badmin.glasses.service.GlassService;
@@ -23,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author erwin
  */
 @RestController
+@RequestMapping(value="/glasses")
 public class GlassController
 {
     private static final Logger LOG = LoggerFactory.getLogger(GlassController.class);
@@ -41,20 +41,13 @@ public class GlassController
     @Autowired
     private GlassService glassService;
 
-    @RequestMapping("/glasses")
-    public List<Glass> getAllGlasses(HttpServletRequest request)
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Glass> getAllGlasses()
     {
-        List<Glass> glasses = glassService.getAllGlasses();
-        glasses.forEach(glass -> glass.getIcon().setLocation(buildIconLocation(request, glass.getId())));
-        return glasses;
-    }
-    
-    private static String buildIconLocation(final HttpServletRequest request, final long glassId)
-    {
-        return request.getRequestURL().append("/") .append(glassId).append("/icon").toString();
+        return glassService.getAllGlasses();
     }
 
-    @RequestMapping(value = "/glasses/{glassId}/icon", method = RequestMethod.GET, produces = "image/png")
+    @RequestMapping(value = "{glassId}/icon", method = RequestMethod.GET, produces = "image/png")
     @ResponseBody
     public byte[] getGlassIcon(@PathVariable final long glassId)
     {        
@@ -77,4 +70,17 @@ public class GlassController
         }
         return glass.get();
     }   
+    
+    @RequestMapping(method = RequestMethod.POST)
+    public void createGlass(@RequestBody final Glass glass)
+    {
+       glassService.addGlass(glass);
+    }
+
+    //FIXME exception handling -> convert user errror 
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateGlass(@RequestBody final Glass glass)
+    {
+        glassService.updateGlass(glass);
+    }
 }

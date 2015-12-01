@@ -20,7 +20,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GuiApplication
 {
-    // FIXME Use a thymeleaf template to construct the application
     // FIXME access control / login form
     // FIXME service discovery (or simply configuration, for now)
 

@@ -24,6 +24,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Simple cocktail glass.
  * 
@@ -49,7 +51,7 @@ public class Glass implements Serializable
     @Column(nullable = false)
     private Unit unit;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private GlassIcon icon;
 
     public Glass()
@@ -115,6 +117,7 @@ public class Glass implements Serializable
     }
     
     @Transient
+    @JsonIgnore
     public boolean isNew()
     {
         return id == null;
