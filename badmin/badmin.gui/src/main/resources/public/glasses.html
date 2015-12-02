@@ -2,6 +2,7 @@
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="bower_components/paper-toast/paper-toast.html">
 
 <dom-module id="glass-list">
 	<template>
@@ -30,8 +31,12 @@
 		    width: 100px;
 		  }
 	    </style>
+	    
+	    <paper-toast id="toast" duration="3000">
+        </paper-toast>
       
-		<iron-ajax id="retrieveGlasses" auto url="{{service-url}}" handle-as="json" on-response="glassesResponse"></iron-ajax>
+		<iron-ajax id="retrieveGlasses" auto url="{{service-url}}" handle-as="json" 
+			on-response="gotGlasses" on-error="gotError"></iron-ajax>
        	<h2>Glasses</h2>
 		<div class="horizontal layout wrap glasses">     
 	        <template is="dom-repeat" items="{{glasses}}">
@@ -65,11 +70,17 @@
 	      is: 'glass-list',
 	      ready: function() {
 	    	  console.debug('Glass list started');
-	      },	     
-	      glassesResponse: function(e) {
-	    	  this.glasses = e.detail.response;		     
-		  },
-		  openDetail: function(event) {
+	      },	  
+	      gotGlasses: function(event, ironRequest) {
+	          this.glasses = ironRequest.response;
+	      },
+	      gotError: function(event, ironRequest){
+	    	  console.debug(event.detail.error);
+	    	  var toast=document.querySelector("#toast");
+	          toast.text="Could not retrieve glasses: "+event.detail.error;
+	          toast.show();
+	      },
+	      openDetail: function(event) {
 		    console.debug(event.model.item);
 		    this.glass = event.model.item;
 			this.$.glassDetailDialog.open();
