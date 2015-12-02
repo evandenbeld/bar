@@ -1,0 +1,104 @@
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
+
+<dom-module id="glass-detail">
+	<template>
+		<style>				     
+		  paper-dialog img
+		  {
+		    width: 100px;
+		  }
+	    </style>	    	        		      
+	  	
+	  	<paper-dialog id="glassDetailDialog" modal>
+			<h2>Edit {{glass.name}}</h2>
+		    <div class="settings">
+		      <paper-input id="nameInput" label="Name" value="{{glass.name}}"></paper-input>
+		      <paper-input label="contents ({{glass.unit}})" value="{{glass.contents}}"></paper-input>
+		      <img id="glassDetailIcon" src="data:image/png;base64,{{glass.icon.data}}" alt="{{glass.name}}" >		     
+		    </div>
+		    <div class="upload">
+		     	<input type="file" id="fileInput" on-change="iconFileChange" accept="image/png">
+		    </div>
+	      	<div class="buttons">
+		      	<paper-button id="createButton" raised on-tap="save">
+	                <iron-icon icon="add"></iron-icon>
+	                Save
+	            </paper-button>
+		      	<paper-button id="cancelButton" raised on-tap="close">
+	                <iron-icon icon="cancel"></iron-icon>
+	                Cancel
+	            </paper-button>          		       	
+        	</div>
+	    </paper-dialog>
+	    <iron-ajax id="updateGlassAjax" url="{{service-url}}" method="PUT" contentType="application/json"/>
+	    
+	</template>
+	<script>
+	
+		function newGlass() {
+	        return {"id": null, "name": "", "contents": 200, "unit": "ml", "icon": {"id":null,"data":""}};
+	    }
+
+	
+	    Polymer({
+	      is: 'glass-detail',
+	      properties: {
+	            glass: {
+	                type: Object,
+	                value: newGlass(),
+	                notify: true
+	            }
+	        },
+		    ready: function() {
+		    	this.$.updateGlassAjax.addEventListener('error', this.handleError);
+		        this.$.updateGlassAjax.addEventListener('request', this.handleRequestSent);
+		        this.$.updateGlassAjax.addEventListener('response', this.handleResponseReceived);
+		    },
+		    handleError: function(event) {
+	           
+	            console.log(event.detail);
+	            //FIXME determin which value is invalid or else -> toast
+	            		
+	           	nameInput.errorMessage = event.detail.error;
+	            nameInput.invalid = true;
+	        },
+	        handleRequestSent: function (request) {
+	            console.log("Saving glass");
+	        },
+	        handleResponseReceived: function (response) {
+	            glassDetailDialog.close(); 
+	        	this.fire('glass-saved');
+	        },	    
+	      	open: function(theGlass) {
+			    console.debug("Open detail for " + theGlass);		    
+			    this.glass = theGlass;
+				this.$.glassDetailDialog.open();
+			},
+			close: function() {
+				this.$.glassDetailDialog.close();
+			},
+			iconFileChange: function(event) {
+				var file = event.target.files[0];
+				console.debug("Icon file changed: " + file);
+				var reader = new FileReader();
+				var glassImg = this.$.glassDetailIcon;
+				var glassObj = this.glass;
+		      	reader.onload = function (e) {
+		    		console.debug("Icon file loaded: " + e.target.result);
+		    		glassImg.src = e.target.result;
+		    		glassObj.icon.data = e.target.result.substr(22);
+				}
+		    	reader.readAsDataURL(event.target.files[0]);
+			},
+			save: function() {
+			  	console.debug("Save: " + this.glass);
+			  	this.$.updateGlassAjax.contentType="application/json";
+			  	this.$.updateGlassAjax.body =  JSON.stringify(this.glass);	    	
+			  	this.$.updateGlassAjax.generateRequest();		  			  
+		    }
+		}); 
+	</script>
+
+</dom-module>

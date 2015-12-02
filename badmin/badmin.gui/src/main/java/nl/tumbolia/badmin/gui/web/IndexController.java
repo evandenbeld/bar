@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController
 {
-    //FIXME handle errors + toast?
+    //FIXME handle errors (see glass.html)
     
-    //FIXME split glasses into separate components (+ move to bar.glasses?)
+    //TODO Move glasses GUI bar.glasses?
     
     //FIXME new glass GUI functionality
     

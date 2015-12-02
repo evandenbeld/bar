@@ -1,3 +1,4 @@
+<link rel="import" href="glass.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
@@ -25,51 +26,31 @@
 		  	margin-right: auto;
 		  	text-align: center;
 		  }
-		  
-		  paper-dialog img
-		  {
-		    width: 100px;
-		  }
 	    </style>
-	    
-	    <paper-toast id="toast" duration="3000">
-        </paper-toast>
-      
-		<iron-ajax id="retrieveGlasses" auto url="{{service-url}}" handle-as="json" 
-			on-response="gotGlasses" on-error="gotError"></iron-ajax>
+	    	         	
        	<h2>Glasses</h2>
+       	<paper-toast id="toast" duration="3000"></paper-toast>
 		<div class="horizontal layout wrap glasses">     
 	        <template is="dom-repeat" items="{{glasses}}">
 	       		<img src="{{service-url}}/{{item.id}}/icon" alt="{{item.name}}" title="{{item.name}}" on-tap="openDetail" >
 		   	</template>
 	  	</div>
 	  	
-	  	<paper-dialog id="glassDetailDialog" modal>
-	      <h2>Edit {{glass.name}}</h2>
-		    <div class="settings">
-		      <paper-input label="Name" value="{{glass.name}}"></paper-input>
-		      <paper-input label="contents ({{glass.unit}})" value="{{glass.contents}}"></paper-input>
-		      <img id="glassDetailIcon" src="data:image/png;base64,{{glass.icon.data}}" alt="{{glass.name}}" >
-		     
-		    </div>
-		    <div class="upload">
-		     	<input type="file" id="fileInput" on-change="iconFileChange" accept="image/png">
-		    </div>
-	      	<div class="buttons">
-          		<paper-button dialog-dismiss on-click="closeDetail">Cancel</paper-button>
-          		<paper-button dialog-confirm autofocus on-click="save">Save</paper-button>          		
-        	</div>
-	    </paper-dialog>
-	    <iron-ajax id="updateGlass" url="{{service-url}}" method="PUT" 
-        	contentType="application/json" on-response="saveResponse" response="{{response}}">
-        </polymer-ajax>
+	  	<iron-ajax id="retrieveGlasses" auto url="{{service-url}}" handle-as="json" 
+			on-response="gotGlasses" on-error="gotError"></iron-ajax>
+	  	
+	  	<glass-detail id="glassDetail" service-url="{{service-url}}"></glass-detail>	  
 	    
 	</template>
 	<script>
 	    Polymer({
 	      is: 'glass-list',
 	      ready: function() {
-	    	  console.debug('Glass list started');
+	    	  	console.debug('Glass list started');
+	    	  	this.$.glassDetail.addEventListener('glass-saved', function (e)
+	    		{
+	    			retrieveGlasses.generateRequest();
+	    	    });
 	      },	  
 	      gotGlasses: function(event, ironRequest) {
 	          this.glasses = ironRequest.response;
@@ -82,37 +63,8 @@
 	      },
 	      openDetail: function(event) {
 		    console.debug(event.model.item);
-		    this.glass = event.model.item;
-			this.$.glassDetailDialog.open();
-		  },
-		  closeDetail: function() {
-			  this.$.glassDetailDialog.close();
-		  },
-		  iconFileChange: function(event) {
-			  var file = event.target.files[0];
-			  console.debug("Icon file changed: " + file);
-			  var reader = new FileReader();
-			  var glassImg = this.$.glassDetailIcon;
-			  var glassObj = this.glass;
-	          reader.onload = function (e) {
-	        	console.debug("Icon file loaded: " + e.target.result);
-	        	glassImg.src = e.target.result;
-	        	glassObj.icon.data = e.target.result.substr(22);
-	          }
-
-		      reader.readAsDataURL(event.target.files[0]);
-		  },
-		  save: function() {
-			  console.debug("Save: " + JSON.stringify(this.glass));
-			this.$.updateGlass.contentType="application/json";
-			this.$.updateGlass.body =  JSON.stringify(this.glass);	    	
-		  	this.$.updateGlass.generateRequest();
-		  },
-		  saveResponse: function(event) {
-			
-			  console.debug("Glas saved: " + event.lastError);
-			  this.$.retrieveGlasses.generateRequest();
-		  }
+			this.$.glassDetail.open(event.model.item);
+		  },		  		  
 	    }); 
 	</script>
 
