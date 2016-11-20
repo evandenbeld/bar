@@ -1,0 +1,13 @@
+---
+buildName: "bar"
+codeReview: false
+links:
+  Git: "https://github.com/evandenbeld/bar.git"
+  Job: "http://192.168.99.100:30980/job/bar"
+  Production: "http://10.0.0.125:80/kubernetes/pods?namespace=default-prod"
+  Staging: "http://10.0.0.125:80/kubernetes/pods?namespace=default-staging"
+  Testing: "http://10.0.0.125:80/kubernetes/pods?namespace=default-testing"
+environments:
+  Testing: "default-testing"
+  Staging: "default-staging"
+  Production: "default-prod"
