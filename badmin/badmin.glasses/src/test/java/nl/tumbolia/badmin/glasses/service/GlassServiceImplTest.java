@@ -5,14 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import nl.tumbolia.badmin.glasses.domain.Glass;
-import nl.tumbolia.badmin.glasses.domain.GlassIcon;
-import nl.tumbolia.badmin.glasses.domain.Unit;
-import nl.tumbolia.badmin.glasses.repository.GlassIconRepository;
-import nl.tumbolia.badmin.glasses.repository.GlassRepository;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -23,7 +18,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.google.common.collect.ImmutableList;
+import nl.tumbolia.badmin.glasses.domain.Glass;
+import nl.tumbolia.badmin.glasses.domain.GlassIcon;
+import nl.tumbolia.badmin.glasses.domain.Unit;
+import nl.tumbolia.badmin.glasses.repository.GlassIconRepository;
+import nl.tumbolia.badmin.glasses.repository.GlassRepository;
+
 
 /**
  * @author erwin
@@ -64,7 +64,7 @@ public class GlassServiceImplTest
     @Test
     public void testGetAllGlasses()
     {
-        List<Glass> expectedGlasses = ImmutableList.of(
+		List<Glass> expectedGlasses = Arrays.asList(
                 Mockito.mock(Glass.class), Mockito.mock(Glass.class));
         Mockito.when(mockGlassRepository.findAll()).thenReturn(expectedGlasses);
 
