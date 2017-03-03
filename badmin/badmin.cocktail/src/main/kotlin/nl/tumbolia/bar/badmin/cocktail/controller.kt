@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.RequestMapping
 
 @RestController
+@RequestMapping("/api")
 class CocktailController(val cocktails: CocktailRepository) {
 	//FIXME authz /oauth
 
-	@GetMapping("/")
+	@GetMapping
 	fun findAll() = cocktails.findAll()
 
 	@GetMapping("/{id}")
