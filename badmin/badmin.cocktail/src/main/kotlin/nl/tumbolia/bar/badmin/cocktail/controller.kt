@@ -51,6 +51,7 @@ class CocktailController(val cocktails: CocktailRepository) {
 		if (!cocktails.exists(id)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null)
 		}
+		cocktails.delete(id)
 		return ResponseEntity.ok(null)
 	}
 }

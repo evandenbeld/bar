@@ -1,0 +1,18 @@
+ <section>
+    <section *ngIf="isLoading && !errorMessage">
+    Loading cocktails...
+    </section>
+    <carousel data-interval="false">
+    	<slide *ngFor="let cocktail of cocktails">
+    		<img src="assets/images/cocktail1.png" alt="{{cocktail.name}}">
+		    <div class="carousel-caption">
+		    	<h3>{{cocktail.name}}</h3>
+		       	<p>{{cocktail.description}}</p>
+		       	<p>{{cocktail.recipe}}</p>
+			</div>
+    	</slide>
+    </carousel>
+	<section *ngIf="errorMessage">
+        {{errorMessage}}
+	</section>
+</section>

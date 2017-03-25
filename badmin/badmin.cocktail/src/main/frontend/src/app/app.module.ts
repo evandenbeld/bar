@@ -5,10 +5,11 @@ import { HttpModule } from '@angular/http';
 import { CarouselModule } from 'ng2-bootstrap/carousel';
 
 import { AppComponent } from './app.component';
+import { CocktailsComponent } from './cocktail.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, CocktailsComponent
   ],
   imports: [
     CarouselModule.forRoot(),
